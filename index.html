@@ -296,22 +296,6 @@
             transform: translateY(2px);
         }
         
-        .music-note {
-            position: absolute;
-            font-size: 2.5rem;
-            color: rgba(255, 255, 255, 0.7);
-            animation: floatNote 8s infinite linear;
-            z-index: 0;
-            opacity: 0;
-        }
-        
-        @keyframes floatNote {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-        }
-        
         .footer {
             margin-top: 40px;
             color: #7e57c2;
@@ -360,9 +344,6 @@
     <!-- 气球背景 -->
     <div id="balloons-container"></div>
     
-    <!-- 音乐音符 -->
-    <div id="music-notes"></div>
-    
     <div class="container">
         <div class="header">
             <h1><i class="fas fa-birthday-cake birthday-icon"></i> <span class="name-highlight">李乐</span> 生日快乐！ <i class="fas fa-gift birthday-icon"></i></h1>
@@ -388,7 +369,7 @@
    
         <div class="photo-gallery">
             <div class="photo-frame">
-                <img src="https://c-ssl.duitang.com/uploads/item/202004/16/20200416112708_fpyik.jpg" alt="阿米娅">
+                <img src="https://c-ssl.duitang.com/uploads/item/202003/07/20200307173840_jiqvl.jpg" alt="阿米娅">
             </div>
             <div class="photo-frame">
                 <img src="https://tse2-mm.cn.bing.net/th/id/OIP-C.DXcd-WY2S9sjOQngDYiKwwHaHa?w=197&h=197&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3" alt="凯尔希">
@@ -399,9 +380,6 @@
         </div>
         
         <div class="controls">
-            <button id="music-btn" class="btn">
-                <i class="fas fa-music"></i> 播放生日歌
-            </button>
             <button id="confetti-btn" class="btn">
                 <i class="fas fa-sparkles"></i> 庆祝特效
             </button>
@@ -410,14 +388,9 @@
         <div class="signature">—— 你的好朋友黄馨仪 <span class="heart">❤</span></div>
         
         <div class="footer">
-            <p> <span class="heart">❤</span> | {当前日期}</p>
+            <p> <span class="heart">❤</span> | 2025年7月3日</p>
         </div>
-
     </div>
-    
-    <audio id="birthday-song" loop>
-        <source src="https://www.soundjay.com/misc/sounds/happy-birthday-song-30.mp3" type="audio/mpeg">
-    </audio>
     
     <script>
         // 创建气球
@@ -453,45 +426,6 @@
                 
                 container.appendChild(balloon);
             }
-        }
-        
-        // 创建音乐音符
-        function createMusicNotes() {
-            const container = document.getElementById('music-notes');
-            const notes = ['♪', '♫', '♩', '♬'];
-            
-            for (let i = 0; i < 15; i++) {
-                const note = document.createElement('div');
-                note.classList.add('music-note');
-                note.textContent = notes[Math.floor(Math.random() * notes.length)];
-                
-                note.style.left = `${Math.random() * 100}vw`;
-                note.style.animationDuration = `${Math.random() * 5 + 6}s`;
-                note.style.animationDelay = `${Math.random() * 3}s`;
-                note.style.fontSize = `${Math.random() * 2 + 2}rem`;
-                
-                container.appendChild(note);
-            }
-        }
-        
-        // 播放生日歌
-        function setupMusic() {
-            const musicBtn = document.getElementById('music-btn');
-            const audio = document.getElementById('birthday-song');
-            let isPlaying = false;
-            
-            musicBtn.addEventListener('click', () => {
-                if (isPlaying) {
-                    audio.pause();
-                    musicBtn.innerHTML = '<i class="fas fa-music"></i> 播放生日歌';
-                } else {
-                    audio.play().catch(e => console.log("播放需要用户交互:", e));
-                    musicBtn.innerHTML = '<i class="fas fa-pause"></i> 暂停音乐';
-                    // 添加音符动画
-                    createMusicNotes();
-                }
-                isPlaying = !isPlaying;
-            });
         }
         
         // 创建五彩纸屑效果
@@ -542,16 +476,6 @@
             });
         }
         
-        // 设置当前日期
-        function setCurrentDate() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const dateStr = now.toLocaleDateString('zh-CN', options);
-            
-            document.querySelector('.footer p').textContent = 
-                ` ${dateStr}`;
-        }
-        
         // 添加礼物盒点击效果
         function setupGiftBox() {
             const giftBox = document.querySelector('.gift-box');
@@ -570,7 +494,7 @@
                 
                 // 显示弹出祝福
                 const popup = document.createElement('div');
-                popup.textContent = '礼物在路上，等我~';
+                popup.textContent = '生日快乐~';
                 popup.style.position = 'absolute';
                 popup.style.top = '50%';
                 popup.style.left = '50%';
@@ -610,9 +534,7 @@
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             createBalloons();
-            setupMusic();
             createConfetti();
-            setCurrentDate();
             setupGiftBox();
         });
     </script>
